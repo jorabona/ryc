@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!-- script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script-->
+<script src="./data.js"></script>
+<script src="./math.js"></script>
+<script>
+
+//write header
+
+	document.write('<div>From,To,bearing,distance</div>');
+//loop through the marks
+
+	array.forEach(function (profile, index, arr) {
+  		console.log(`Index: ${index}, mark: ${profile.mark}`);
+
+		start_latitude = profile.lat;
+		start_longitude = profile.log;			
+		from_mark = profile.mark;
+
+//console.log(start_latitude);
+		document.write("<div index=outer-" + index +  ">");
+
+// loop and grab distance and bearing for "i" to each in the list
+
+		array.forEach(function (profile, index, arr) {
+			var stop_latitude = profile.lat;
+			var stop_longitude = profile.log;
+			var to_mark = profile.mark;
+
+			console.log('From: ' + from_mark + ' To: ' + to_mark);
+			console.log('b= ' + bearing(start_latitude,start_longitude,stop_latitude,stop_longitude));
+			console.log('d= ' + distance(start_latitude,start_longitude,stop_latitude,stop_longitude,"N"));	
+
+			//document.write("<div>");
+			document.write('<div index=inner-'+ index+ '>' + from_mark + ',' + to_mark + ",");
+			//bearing
+                        document.write(bearing(start_latitude,start_longitude,stop_latitude,stop_longitude)+ ",");
+			//distance
+                        document.write(distance(start_latitude,start_longitude,stop_latitude,stop_longitude,"N")+ "</div>");
+			//document.write("<\div>");
+		});
+		
+		document.write("<\div>");
+	});
+
+
+
+
+
+
+</script>
+<!--
+
+	/* console.log(`mark: ${profile.mark}, lat: ${profile.lat}, log: ${profile.log}`);*/
+	//console.log(bearing(start_latitude,start_longitude,stop_latitude,stop_longitude));
+
+-->
