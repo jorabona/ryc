@@ -1,5 +1,6 @@
 let array = [
 //id: ID, mark: 'Mark',lat: Latlog: Long,descr: Description}
+//max id = 26
 
 
 {id: 1, mark: 'A',lat: 40.4866647222222,log: -74.2530380555555,descr: 'GREAT BEDS LIGHT'},
@@ -15,6 +16,8 @@ let array = [
 {id: 11, mark: 'M',lat: 0,log: 0,descr: 'MOBILE MARK'},
 {id: 12, mark: 'N',lat: 40.5063377777778,log: -74.1846241666667,descr: 'G 27 Qk FL'},
 {id: 13, mark: 'O',lat: 40.4890363888889,log: -74.1064802777778,descr: 'G 9 FL G 4 sec'},
+{id: 25, mark: 'P',lat: 40.487364,log: -74.256677,descr: 'Ward Point Anchorage Bouy A -- Yellow Can'},
+{id: 26, mark: 'Q',lat: 40.489448,log: -74.257927,descr: 'Ward Point Anchorage Bouy B -- Yellow Can'},
 {id: 14, mark: 'R1',lat: 40.475,log: -74.251,descr: 'White/Orange Race Course 1'},
 {id: 15, mark: 'R2',lat: 40.4736111111111,log: -74.2438888888889,descr: 'White/Orange Race Course 2'},
 {id: 16, mark: 'RYC',lat: 40.5035133333333,log: -74.2565741666667,descr: 'Cupola Finish: cupola & R 60'},
@@ -28,3 +31,4 @@ let array = [
 {id: 24, mark: 'Z',lat: 40.4968925,log: -74.2628719444444,descr: 'G Can 3'}
 
     ];
+
