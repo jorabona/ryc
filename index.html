@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>RYC Race Marks</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+<!-- Start CSS -->
+<link rel="stylesheet" type="text/css" href="https://www.ryc.org/A_Master/library/css/_bootstrap/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="https://www.ryc.org/A_Master/library/css/_axisGlobal/global.css?v=1.6.5" />
+<link rel="stylesheet" type="text/css" href="https://www.ryc.org/A_Master/library/css/RaritanYC.css" />
+<link rel="stylesheet" type="text/css" href="https://www.ryc.org/A_Master/library/js/jquery/1.12.3/jquery-ui.css" />
+<!-- End CSS -->
+
+<!--------site css-------->
+<style>
+	#results {
+		margin : 32px 12px 24px 50px;
+		font-size : 2em;
+		line-height : 2;
+	}
+	.sbut, .find-mark SELECT, INPUT, LABEL {
+		font-size : 1.8em;
+                line-height : 2;
+	}
+	.find-mark SELECT, INPUT {
+		width: 40%;
+	}
+	.find-mark {
+		width : 400px;
+		margin : 32px 12px 24px 12px; 
+	}
+	
+</style>
+<!--------fonts-------->
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,700i|Montserrat" rel="stylesheet">
+
+<script>
+	function getCourse(){
+		var f = document.getElementById('frm').value;
+		var t = document.getElementById('to').value;
+		var r = f + "-" + t;
+		console.log(r);
+		// search exclude list for route	
+		lookupe = {};
+		exclude.forEach(function (el, i, arr) {
+ 			lookupe[el.route] = el.route;
+                });	
+
+		var e = lookupe[r]; 	
+
+		//get results
+		if (r == e || f == t) {
+			// if route exists in exclude list write error message
+			document.getElementById('results').innerHTML = "The course " + f + " to " + t + " is not navigable";
+	
+		} else{
+
+			// look up route
+
+			lookupb = {};
+			lookupd = {};
+
+			 routes.forEach(function (el, i, arr) {
+			         lookupb[el.route] = el.b;
+               		     	 lookupd[el.route] = el.d;
+                	 });
+
+			// write route to screen
+
+			document.getElementById('results').innerHTML = "Bearing = " + lookupb[r] + "<br> Distance = " + lookupd[r]; 
+
+		}
+	}
+
+</script>
+</head>
+<body>
+<div class="find-mark">
+<form id="find-mark">
+<p><label>From: </label>
+<select id="frm" name="frm">
+<option value='#'>Mark</option>
+<option value='A'>A</option>
+<option value='B'>B</option>
+<option value='D'>D</option>
+<!-- removed "E" -->
+<option value='G'>G</option>
+<option value='H'>H</option>
+<option value='I'>I</option>
+<option value='J'>J</option>
+<option value='K'>K</option>
+<option value='L'>L</option>
+<option value='M'>M</option>
+<option value='N'>N</option>
+<option value='O'>O</option>
+<option value='P'>P</option>
+<option value='Q'>Q</option>
+<option value='R1'>R1</option>
+<option value='R2'>R2</option>
+<option value='RYC'>RYC</option>
+<option value='T'>T</option>
+<option value='S/F'>S/F</option>
+<option value='U'>U</option>
+<option value='V'>V</option>
+<option value='W'>W</option>
+<option value='X'>X</option>
+<option value='Y'>Y</option>
+<option value='Z'>Z</option>
+</select></p><p>
+<label style="margin-left:41px;">To: </label>
+<select id="to" name="to" style="margin-right:12px">
+<option value='#'>Mark</option>
+<option value='A'>A</option>
+<option value='B'>B</option>
+<option value='D'>D</option>
+<!-- removed "E" -->
+<option value='G'>G</option>
+<option value='H'>H</option>
+<option value='I'>I</option>
+<option value='J'>J</option>
+<option value='K'>K</option>
+<option value='L'>L</option>
+<option value='M'>M</option>
+<option value='N'>N</option>
+<option value='O'>O</option>
+<option value='P'>P</option>
+<option value='Q'>Q</option>
+<option value='R1'>R1</option>
+<option value='R2'>R2</option>
+<option value='RYC'>RYC</option>
+<option value='T'>T</option>
+<option value='S/F'>S/F</option>
+<option value='U'>U</option>
+<option value='V'>V</option>
+<option value='W'>W</option>
+<option value='X'>X</option>
+<option value='Y'>Y</option>
+<option value='Z'>Z</option>
+</select><p/><p>
+<input type="button" style="margin-left:81px;margin-top:12px" class="sbut" onclick="getCourse();" value="submit" /></p>
+</form>
+</div>
+<div id="results"></div>
+</body>
+</html>
+<script src="./data.json"></script>
