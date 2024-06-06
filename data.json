@@ -3,7 +3,7 @@ var routes = [
 
 //begin
 
-{
+
 {b: 13, d: 0, id: 1, route: 'A-A'},
 {b: 76.8018, d: 1.9822, id: 2, route: 'A-B'},
 {b: 96.6293, d: 5.4885, id: 3, route: 'A-D'},
