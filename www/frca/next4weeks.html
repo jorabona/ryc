@@ -1,0 +1,117 @@
+<html>
+<head>
+    <title>RYC: Race Committee Assignments for the Next Four Weeks</title>
+    <!-- Start CSS -->
+    <link rel="stylesheet" type="text/css" href="https://www.ryc.org/A_Master/library/css/_bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.ryc.org/A_Master/library/css/_axisGlobal/global.css?v=1.6.5" />
+    <link rel="stylesheet" type="text/css" href="https://www.ryc.org/A_Master/library/css/RaritanYC.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.ryc.org/A_Master/library/js/jquery/1.12.3/jquery-ui.css" />
+    <!-- End CSS -->
+    <style>
+        UL {width:50%}
+        .rc, .date, .event {display:inline-block;width: 30%;}
+
+    </style>    
+
+</head> 
+
+<body>
+
+    <div id="inp-wrapper">
+        <p>Currently searching for records with dates within four weeks from today...</p>
+        
+    </div>
+    <div>
+        <p id="s-results"></p>
+    </div>
+
+</body>   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+<script>
+function searchCSV(filePath) {
+    return new Promise((resolve, reject) => {
+        Papa.parse(filePath, {
+            download: true,
+            header: true,
+            complete: (results) => {
+                const data = results.data;
+                const today = new Date();
+                const fourWeeksFromNow = new Date();
+                fourWeeksFromNow.setDate(today.getDate() + 28); // Set to 4 weeks from today
+
+                // Filter out the headers by ensuring we only take rows that contain data
+                const matchingRows = data.filter(row => {
+                    const dateStr = row['2025 Dates'];
+                    if (!dateStr) return false; // Skip rows where date is not present
+                    const date = new Date(dateStr); // Parse the date from the CSV
+                    return date >= today && date <= fourWeeksFromNow; // Check if date is within range
+                });
+
+                // Extract relevant information from the matching rows
+                const output = matchingRows.map(row => ({
+                    rc: row.RC,
+                    date: row['2025 Dates'],
+                    event: row.Event // Add the Event column
+                }));
+
+                resolve(output);
+            },
+            error: (error) => {
+                reject(error);
+            }
+        });
+    });
+}
+
+async function handleSearch() {
+    const csvFilePath = './2025.04.02RaceSchedule.csv'; // Your CSV file path
+
+    try {
+        const results = await searchCSV(csvFilePath);
+        
+        const resultsContainer = document.getElementById('s-results');
+        resultsContainer.innerHTML = ''; // Clear previous results
+
+        if (results.length > 0) {
+            const ul = document.createElement('ul'); // Create a new unordered list
+            results.forEach(record => {
+                const li = document.createElement('li'); // Create a new list item
+                
+                // Create span elements for each piece of data and assign classes
+                const rcSpan = document.createElement('span');
+                rcSpan.textContent = record.rc;
+                rcSpan.className = 'rc'; // Class for RC
+
+                const dateSpan = document.createElement('span');
+                dateSpan.textContent = record.date;
+                dateSpan.className = 'date'; // Class for Date
+
+                const eventSpan = document.createElement('span');
+                eventSpan.textContent = record.event;
+                eventSpan.className = 'event'; // Class for Event
+
+                // Append spans to list item
+                
+                li.appendChild(dateSpan);
+                li.appendChild(eventSpan);
+                li.appendChild(rcSpan);
+                
+                ul.appendChild(li); // Append the list item to the unordered list
+            });
+            resultsContainer.appendChild(ul); // Append the unordered list to the results container
+        } else {
+            resultsContainer.textContent = 'No matching dates found.'; // Message when no results
+        }
+    } catch (error) {
+        console.error('Error reading CSV file:', error);
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    handleSearch(); // Execute the search without needing input
+});
+</script>
+
+
+</html>

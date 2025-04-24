@@ -1,0 +1,80 @@
+<html>
+<head>
+    <title>RYC: Find your Race Committee Assignment</title>
+    <!-- Start CSS -->
+    <link rel="stylesheet" type="text/css" href="https://www.ryc.org/A_Master/library/css/_bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.ryc.org/A_Master/library/css/_axisGlobal/global.css?v=1.6.5" />
+    <link rel="stylesheet" type="text/css" href="https://www.ryc.org/A_Master/library/css/RaritanYC.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.ryc.org/A_Master/library/js/jquery/1.12.3/jquery-ui.css" />
+    <!-- End CSS -->
+</head>
+<body>
+    <div id="inp-wrapper">
+        <p>Type your name to find the date of your RC assignment: <input type="text" name="rc-search" /></p>
+    </div>
+    <div>
+        <p id="s-results"></p>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+<script>
+// This function reads a CSV file and searches for a value
+function searchCSV(filePath, searchValue) {
+    return new Promise((resolve, reject) => {
+        // Using PapaParse to parse the CSV
+        Papa.parse(filePath, {
+            download: true,
+            header: true, // Use the first row as header
+            complete: (results) => {
+                const data = results.data;
+                const matchingRows = data.filter(row => {
+                    // Search for the value in the "RC" column
+                    return row.RC && row.RC.toString().toLowerCase().includes(searchValue.toLowerCase());
+                });
+
+                // Extract the dates from the matching rows
+                const matchingDates = matchingRows.map(row => row['2025 Dates']).filter(date => date); // Filter out any undefined dates
+                resolve(matchingDates);
+            },
+            error: (error) => {
+                reject(error);
+            }
+        });
+    });
+}
+
+// This function is called when the input changes
+async function handleSearch() {
+    const inputField = document.querySelector('input[name="rc-search"]');
+    const valueToSearch = inputField.value; // Get the value from input field
+    const csvFilePath = './2025.04.02RaceSchedule.csv'; // Replace with your CSV file path
+
+    try {
+        const results = await searchCSV(csvFilePath, valueToSearch);
+        
+        const resultsContainer = document.getElementById('s-results');
+        resultsContainer.innerHTML = ''; // Clear previous results
+
+        if (results.length > 0) {
+            const ul = document.createElement('ul'); // Create a new unordered list
+            results.forEach(date => {
+                const li = document.createElement('li'); // Create a new list item
+                li.textContent = date; // Set the text content to the date
+                ul.appendChild(li); // Append the list item to the unordered list
+            });
+            resultsContainer.appendChild(ul); // Append the unordered list to the results container
+        } else {
+            resultsContainer.textContent = 'No matching dates found.'; // Set message when no results
+        }
+    } catch (error) {
+        console.error('Error reading CSV file:', error);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const inputField = document.querySelector('input[name="rc-search"]');
+    inputField.addEventListener('input', handleSearch); // Add event listener for input changes
+});
+</script>
+
+</html>
