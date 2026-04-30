@@ -27,7 +27,6 @@ var routes = [
 {b: 101.8645, d: 0.8633, id: 21, route: 'A-U'},
 {b: 91.3554, d: 1.1509, id: 22, route: 'A-V'},
 {b: 69.6242, d: 0.4219, id: 23, route: 'A-W'},
-#VALUE!
 {b: 13, d: 0, id: 25, route: 'A-A'},
 {b: 76.8018, d: 1.9822, id: 26, route: 'A-B'},
 {b: 96.6293, d: 5.4885, id: 27, route: 'A-D'},
