@@ -27,7 +27,6 @@ var routes = [
 {b: 101.8645, d: 0.8633, id: 21, route: 'A-U'},
 {b: 91.3554, d: 1.1509, id: 22, route: 'A-V'},
 {b: 69.6242, d: 0.4219, id: 23, route: 'A-W'},
-#VALUE!
 {b: 13, d: 0, id: 25, route: 'A-A'},
 {b: 76.8018, d: 1.9822, id: 26, route: 'A-B'},
 {b: 96.6293, d: 5.4885, id: 27, route: 'A-D'},
@@ -653,7 +652,6 @@ var routes = [
 {b: 227.9011, d: 0.2458, id: 647, route: 'Z-X'},
 {b: 227.7046, d: 0.4986, id: 648, route: 'Z-Y'},
 {b: 13, d: 0, id: 649, route: 'Z-Z'},
-#VALUE!
 {b: 298.5396, d: 0.7604, id: 651, route: 'A-Y'},
 {b: 336.8285, d: 0.7601, id: 652, route: 'A-Z'},
 {b: 256.8271, d: 1.9822, id: 653, route: 'B-A'},
